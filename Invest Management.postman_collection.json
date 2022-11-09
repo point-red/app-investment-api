@@ -1,0 +1,717 @@
+{
+	"info": {
+		"_postman_id": "e98c3950-4bc5-4692-bf69-117e95dc0c78",
+		"name": "Invest Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3723185"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"wendy\",\n    \"email\": \"wendy@gmail.com\",\n    \"firstName\": \"wendy\",\n    \"lastName\": \"cagur\",\n    \"phone\": \"081395038967\",\n    \"role\": \"636495687cbd2fe3dd1a1061\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/636497022cd9b427f73adb67",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"636497022cd9b427f73adb67"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"narji\",\n    \"email\": \"narji@gmail.com\",\n    \"firstName\": \"narji\",\n    \"lastName\": \"cagur\",\n    \"phone\": \"081395038967\",\n    \"role\": \"6364902f8ad443c228de4b1d\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/636496011d0aedae001055da",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"636496011d0aedae001055da"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/636479d92618d7a23a5ad22e",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"636479d92618d7a23a5ad22e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Owner",
+			"item": [
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/owner",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"owner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"wendy\",\n    \"lastName\": \"cagur\",\n    \"email\": \"wendy@gmail.com\",\n    \"phone\": \"081395038967\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/owner",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"owner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/owner/63652e202cb040893db341e4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"owner",
+								"63652e202cb040893db341e4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"wendys\",\n    \"lastName\": \"cagurs\",\n    \"email\": \"wendys@gmail.com\",\n    \"phone\": \"081395038961\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/owner/63652e202cb040893db341e4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"owner",
+								"63652e202cb040893db341e4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/owner/63652e202cb040893db341e4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"owner",
+								"63652e202cb040893db341e4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bank",
+			"item": [
+				{
+					"name": "Account",
+					"item": [
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/bank/6367b3ac8319f8a9ae468f07/6367b3ac8319f8a9ae468f09",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"bank",
+										"6367b3ac8319f8a9ae468f07",
+										"6367b3ac8319f8a9ae468f09"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/bank",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"PT Bank Negara Indonesia\",\n    \"branch\": \"Bandung\",\n    \"address\": \"Jl Jakarta\",\n    \"phone\": \"08123123123\",\n    \"fax\": \"081395038967\",\n    \"code\": \"BCA002\",\n    \"notes\": \"summary\",\n    \"accounts\": [\n        {\n          \"accountName\": \"You Forger\",\n          \"accountNumber\": \"008367812589\",\n          \"notes\": \"Lorem\"\n        },\n        {\n          \"accountName\": \"You Forger1\",\n          \"accountNumber\": \"008367812589\",\n          \"notes\": \"Lorem\"\n        }\n      ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/bank",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/bank/6366aa8c0d3b0b1994c008c9",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bank",
+								"6366aa8c0d3b0b1994c008c9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"PT Bank Negara Indonesia\",\n    \"branch\": \"Bandung\",\n    \"address\": \"Jl Jakarta\",\n    \"phone\": \"08123123123\",\n    \"fax\": \"081395038967\",\n    \"code\": \"BCA002\",\n    \"notes\": \"summary\",\n    \"accounts\": [\n        {\n          \"accountName\": \"You Forger\",\n          \"accountNumber\": \"008367812589\",\n          \"notes\": \"Lorem\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/bank/6367b3ac8319f8a9ae468f07",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bank",
+								"6367b3ac8319f8a9ae468f07"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/bank/636479d92618d7a23a5ad22e",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bank",
+								"636479d92618d7a23a5ad22e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "Permission",
+					"item": [
+						{
+							"name": "Find All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/role/permission",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"role",
+										"permission"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"delete user\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/role/permission",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"role",
+										"permission"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/role/permission/636479d92618d7a23a5ad22e",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"role",
+										"permission",
+										"636479d92618d7a23a5ad22e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"narji\",\n    \"email\": \"narji@gmail.com\",\n    \"firstName\": \"narji\",\n    \"lastName\": \"cagur\",\n    \"phone\": \"081395038967\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/role/permission/6364701bc857469175f9673f",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"role",
+										"permission",
+										"6364701bc857469175f9673f"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/role/permission/636479d92618d7a23a5ad22e",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"role",
+										"permission",
+										"636479d92618d7a23a5ad22e"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/role?page=1&limit=10&sort=createdAt,asc",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"role"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "createdAt,asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"testing\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/role",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/role/6364902f8ad443c228de4b1d",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"role",
+								"6364902f8ad443c228de4b1d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/role/6364701bc857469175f9673f",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"role",
+								"6364701bc857469175f9673f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/role/636479d92618d7a23a5ad22e",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"role",
+								"636479d92618d7a23a5ad22e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Permission",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"permissions\": [\"6366856129e5a4a7bc959ebe\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/role/63668543920e22a21a439b75/permission",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"role",
+								"63668543920e22a21a439b75",
+								"permission"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:3000/v1",
+			"type": "string"
+		}
+	]
+}
