@@ -40,3 +40,7 @@ yarn prettier
 # fix prettier errors
 yarn prettier:fix
 ```
+
+API documentation
+
+Invest Management.postman_collection
