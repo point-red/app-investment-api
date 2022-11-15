@@ -73,6 +73,12 @@ describe("Bank - CreateFormRequest", () => {
     it("create form with correct data", () => {
       expect(bankForm).toBeDefined();
       expect(bankForm.name).toEqual(createFormRequestDto.name);
+      expect(bankForm.branch).toEqual(createFormRequestDto.branch);
+      expect(bankForm.address).toEqual(createFormRequestDto.address);
+      expect(bankForm.phone).toEqual(createFormRequestDto.phone);
+      expect(bankForm.fax).toEqual(createFormRequestDto.fax);
+      expect(bankForm.code).toEqual(createFormRequestDto.code);
+      expect(bankForm.notes).toEqual(createFormRequestDto.notes);
     });
   });
 });

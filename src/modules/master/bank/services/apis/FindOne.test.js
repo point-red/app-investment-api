@@ -17,6 +17,12 @@ describe("Bank - FindOne", () => {
       expect(foundBank).toBeDefined();
       expect(foundBank.id).toBe(bank.id);
       expect(foundBank.name).toBe(bank.name);
+      expect(foundBank.branch).toEqual(bank.branch);
+      expect(foundBank.address).toEqual(bank.address);
+      expect(foundBank.phone).toEqual(bank.phone);
+      expect(foundBank.fax).toEqual(bank.fax);
+      expect(foundBank.code).toEqual(bank.code);
+      expect(foundBank.notes).toEqual(bank.notes);
     });
   });
 });

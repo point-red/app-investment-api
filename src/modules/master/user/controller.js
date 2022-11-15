@@ -25,6 +25,14 @@ const createFormRequest = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send({ data: user });
 });
 
+const uploadProfile = catchAsync(async (req, res) => {
+  const { file } = req;
+  const { profile } = await new apiServices.UploadUserProfile({
+    image: file,
+  }).call();
+  res.status(httpStatus.CREATED).send({ data: profile });
+});
+
 const findOne = catchAsync(async (req, res) => {
   const {
     params: { userId },
@@ -62,6 +70,7 @@ const deleteFormRequest = catchAsync(async (req, res) => {
 module.exports = {
   findAll,
   createFormRequest,
+  uploadProfile,
   findOne,
   updateForm,
   deleteFormRequest,

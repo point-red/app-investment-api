@@ -32,7 +32,6 @@ describe("Owner - FindAll", () => {
 
       expect(owners.length).toBe(1);
       expect(owners[0].id).toBe(owner.id);
-      expect(owners[0].id).toBe(owner.id);
       expect(owners[0].firstName).toBe(owner.firstName);
       expect(owners[0].lastName).toBe(owner.lastName);
       expect(owners[0].email).toBe(owner.email);

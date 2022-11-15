@@ -17,6 +17,12 @@ describe("Bank - FindAll", () => {
       expect(banks.length).toBe(1);
       expect(banks[0].id).toBe(bank.id);
       expect(banks[0].name).toBe(bank.name);
+      expect(banks[0].branch).toEqual(bank.branch);
+      expect(banks[0].address).toEqual(bank.address);
+      expect(banks[0].phone).toEqual(bank.phone);
+      expect(banks[0].fax).toEqual(bank.fax);
+      expect(banks[0].code).toEqual(bank.code);
+      expect(banks[0].notes).toEqual(bank.notes);
     });
 
     it("return expected banks with page & limit query", async () => {
@@ -30,6 +36,12 @@ describe("Bank - FindAll", () => {
       expect(banks.length).toBe(1);
       expect(banks[0].id).toBe(bank.id);
       expect(banks[0].name).toBe(bank.name);
+      expect(banks[0].branch).toEqual(bank.branch);
+      expect(banks[0].address).toEqual(bank.address);
+      expect(banks[0].phone).toEqual(bank.phone);
+      expect(banks[0].fax).toEqual(bank.fax);
+      expect(banks[0].code).toEqual(bank.code);
+      expect(banks[0].notes).toEqual(bank.notes);
 
       queries = {
         page: 2,
@@ -59,6 +71,12 @@ describe("Bank - FindAll", () => {
       expect(banks.length).toBe(1);
       expect(banks[0].id).toBe(bank.id);
       expect(banks[0].name).toBe(bank.name);
+      expect(banks[0].branch).toEqual(bank.branch);
+      expect(banks[0].address).toEqual(bank.address);
+      expect(banks[0].phone).toEqual(bank.phone);
+      expect(banks[0].fax).toEqual(bank.fax);
+      expect(banks[0].code).toEqual(bank.code);
+      expect(banks[0].notes).toEqual(bank.notes);
 
       queries = {
         search: "PT Bank ABC",
@@ -77,6 +95,12 @@ describe("Bank - FindAll", () => {
       expect(banks.length).toBe(1);
       expect(banks[0].id).toBe(bank.id);
       expect(banks[0].name).toBe(bank.name);
+      expect(banks[0].branch).toEqual(bank.branch);
+      expect(banks[0].address).toEqual(bank.address);
+      expect(banks[0].phone).toEqual(bank.phone);
+      expect(banks[0].fax).toEqual(bank.fax);
+      expect(banks[0].code).toEqual(bank.code);
+      expect(banks[0].notes).toEqual(bank.notes);
 
       queries = {
         sort: "createdAt,desc",
@@ -86,6 +110,12 @@ describe("Bank - FindAll", () => {
       expect(banks.length).toBe(1);
       expect(banks[0].id).toBe(bank.id);
       expect(banks[0].name).toBe(bank.name);
+      expect(banks[0].branch).toEqual(bank.branch);
+      expect(banks[0].address).toEqual(bank.address);
+      expect(banks[0].phone).toEqual(bank.phone);
+      expect(banks[0].fax).toEqual(bank.fax);
+      expect(banks[0].code).toEqual(bank.code);
+      expect(banks[0].notes).toEqual(bank.notes);
     });
   });
 });

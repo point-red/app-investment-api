@@ -1,5 +1,7 @@
 const express = require("express");
 const { celebrate } = require("celebrate");
+// const multer = require("@src/utils/multer");
+// const fileValidator = require("@src/utils/fileValidator");
 const requestValidations = require("./requestValidations");
 const controller = require("./controller");
 
@@ -15,6 +17,19 @@ router
     celebrate(requestValidations.createFormRequest),
     controller.createFormRequest
   );
+
+// UPLOAD USER IMAGE
+// router.route("/profile/upload").post(
+//   multer({
+//     options: {
+//       limits: {
+//         fileSize: 5 * 1024 * 1024, // no larger than 5MB.
+//       },
+//     },
+//   }).single("image"),
+//   fileValidator(),
+//   controller.uploadProfile
+// );
 
 // GET ONE USER
 router.route("/:userId").get(controller.findOne);

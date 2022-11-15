@@ -19,6 +19,10 @@ describe("User - FindAll", () => {
       expect(users.length).toBe(1);
       expect(users[0].id).toBe(user.id);
       expect(users[0].username).toBe(user.username);
+      expect(users[0].firstName).toBe(user.firstName);
+      expect(users[0].lastName).toBe(user.lastName);
+      expect(users[0].email).toBe(user.email);
+      expect(users[0].phone).toBe(user.phone);
     });
 
     it("return expected users with page & limit query", async () => {
@@ -32,6 +36,10 @@ describe("User - FindAll", () => {
       expect(users.length).toBe(1);
       expect(users[0].id).toBe(user.id);
       expect(users[0].username).toBe(user.username);
+      expect(users[0].firstName).toBe(user.firstName);
+      expect(users[0].lastName).toBe(user.lastName);
+      expect(users[0].email).toBe(user.email);
+      expect(users[0].phone).toBe(user.phone);
 
       queries = {
         page: 2,
@@ -61,6 +69,10 @@ describe("User - FindAll", () => {
       expect(users.length).toBe(1);
       expect(users[0].id).toBe(user.id);
       expect(users[0].username).toBe(user.username);
+      expect(users[0].firstName).toBe(user.firstName);
+      expect(users[0].lastName).toBe(user.lastName);
+      expect(users[0].email).toBe(user.email);
+      expect(users[0].phone).toBe(user.phone);
 
       queries = {
         search: "invalid-username",
@@ -79,6 +91,10 @@ describe("User - FindAll", () => {
       expect(users.length).toBe(1);
       expect(users[0].id).toBe(user.id);
       expect(users[0].username).toBe(user.username);
+      expect(users[0].firstName).toBe(user.firstName);
+      expect(users[0].lastName).toBe(user.lastName);
+      expect(users[0].email).toBe(user.email);
+      expect(users[0].phone).toBe(user.phone);
 
       queries = {
         sort: "name,desc",
@@ -88,6 +104,10 @@ describe("User - FindAll", () => {
       expect(users.length).toBe(1);
       expect(users[0].id).toBe(user.id);
       expect(users[0].username).toBe(user.username);
+      expect(users[0].firstName).toBe(user.firstName);
+      expect(users[0].lastName).toBe(user.lastName);
+      expect(users[0].email).toBe(user.email);
+      expect(users[0].phone).toBe(user.phone);
     });
   });
 });
