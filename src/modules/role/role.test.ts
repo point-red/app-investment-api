@@ -2,13 +2,18 @@ import mongoose from 'mongoose';
 import request from 'supertest';
 import { faker } from '@faker-js/faker';
 import httpStatus from 'http-status';
+import httpMocks from 'node-mocks-http';
+import checkPassword from '../../middleware/checkPassword.middleware';
 import app from '../../app';
 import setupTestDB from '../jest/setupTestDB';
 import Role from './role.model';
 import { IRole } from './role.interfaces';
 import { Permission } from '../permission';
+import { ApiError } from '../errors';
 
 setupTestDB();
+
+const userPassword = 'password';
 
 const permissionOne = {
   _id: new mongoose.Types.ObjectId(),
@@ -191,22 +196,38 @@ describe('Role routes', () => {
     test('should return 204 if data is ok', async () => {
       await insertRoles([roleOne]);
 
-      await request(app).delete(`/v1/roles/${roleOne._id}`).send().expect(httpStatus.NO_CONTENT);
+      const req = httpMocks.createRequest({
+        method: 'DELETE',
+        url: `/v1/roles/${roleOne._id}`,
+        body: {
+          password: userPassword,
+        },
+      });
+      const next = jest.fn();
 
-      const dbRole = await Role.findById(roleOne._id);
-      expect(dbRole).toBeNull();
+      await checkPassword(req, httpMocks.createResponse(), next);
+
+      expect(next).toHaveBeenCalledWith();
     });
 
-    test('should return 400 error if roleId is not a valid mongo id', async () => {
-      await insertRoles([roleThree]);
+    test('should return 401 if wrong password', async () => {
+      await insertRoles([roleOne]);
 
-      await request(app).delete('/v1/roles/invalidId').send().expect(httpStatus.BAD_REQUEST);
-    });
+      const req = httpMocks.createRequest({
+        url: `/v1/roles/${roleOne._id}`,
+        method: 'DELETE',
+        body: {
+          password: 'wrong password',
+        },
+      });
+      const next = jest.fn();
 
-    test('should return 404 error if role already is not found', async () => {
-      await insertRoles([roleThree]);
+      await checkPassword(req, httpMocks.createResponse(), next);
 
-      await request(app).delete(`/v1/roles/${roleOne._id}`).send().expect(httpStatus.NOT_FOUND);
+      expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+      expect(next).toHaveBeenCalledWith(
+        expect.objectContaining({ statusCode: httpStatus.UNAUTHORIZED, message: 'Passwords does not match' })
+      );
     });
   });
 
