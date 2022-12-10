@@ -1,8 +1,8 @@
 import Joi from 'joi';
 import { objectId } from '../validate/custom.validation';
-import { IOwner } from './owner.interfaces';
+import { CreateOwnerBody } from './owner.interfaces';
 
-const createOwnerBody: Record<keyof IOwner, any> = {
+const createOwnerBody: Record<keyof CreateOwnerBody, any> = {
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   email: Joi.string().required().email(),
@@ -46,4 +46,15 @@ export const deleteOwner = {
   params: Joi.object().keys({
     ownerId: Joi.string().custom(objectId),
   }),
+};
+
+export const updateStatusOwner = {
+  params: Joi.object().keys({
+    ownerId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      status: Joi.string().valid('active', 'archived'),
+    })
+    .min(1),
 };

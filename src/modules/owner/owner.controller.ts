@@ -43,3 +43,10 @@ export const deleteOwner = catchAsync(async (req: Request, res: Response) => {
     res.status(httpStatus.NO_CONTENT).send();
   }
 });
+
+export const updateStatusOwner = catchAsync(async (req: Request, res: Response) => {
+  if (typeof req.params['ownerId'] === 'string') {
+    const owner = await ownerService.updateStatusOwnerById(new mongoose.Types.ObjectId(req.params['ownerId']), req.body);
+    res.send(owner);
+  }
+});

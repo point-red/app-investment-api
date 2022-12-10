@@ -15,4 +15,6 @@ router
   .patch(validate(userValidation.updateUser), userController.updateUser)
   .delete(validate(userValidation.deleteUser), userController.deleteUser);
 
+router.route('/:userId/update-status').patch(validate(userValidation.updateStatusUser), userController.updateStatusUser);
+
 export default router;

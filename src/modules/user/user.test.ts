@@ -85,6 +85,7 @@ describe('User routes', () => {
         email: newUser.email,
         phone: newUser.phone,
         role: expect.any(Object),
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
 
@@ -143,6 +144,7 @@ describe('User routes', () => {
         lastName: userOne.lastName,
         email: userOne.email,
         phone: userOne.phone,
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
     });
@@ -228,6 +230,7 @@ describe('User routes', () => {
         lastName: userOne.lastName,
         email: userOne.email,
         phone: userOne.phone,
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
     });
@@ -289,6 +292,7 @@ describe('User routes', () => {
         lastName: updateBody.lastName,
         email: updateBody.email,
         phone: updateBody.phone,
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
 
@@ -330,6 +334,35 @@ describe('User routes', () => {
       const updateBody = { email: userOne.email };
 
       await request(app).patch(`/v1/users/${userOne._id}`).send(updateBody).expect(httpStatus.OK);
+    });
+  });
+
+  describe('PATCH /v1/users/:userId/status-update', () => {
+    test('should return 200 and successfully update status user if data is ok', async () => {
+      await insertUsers([userOne]);
+      const updateBody = {
+        status: 'archived',
+      };
+
+      const res = await request(app).patch(`/v1/users/${userOne._id}/update-status`).send(updateBody).expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        id: userOne._id.toHexString(),
+        username: userOne.username,
+        firstName: userOne.firstName,
+        lastName: userOne.lastName,
+        email: userOne.email,
+        phone: userOne.phone,
+        status: updateBody.status,
+        createdAt: expect.anything(),
+      });
+
+      const dbUser = await User.findById(userOne._id);
+      expect(dbUser).toBeDefined();
+      if (!dbUser) return;
+      expect(dbUser).toMatchObject({
+        status: updateBody.status,
+      });
     });
   });
 });

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import User from './user.model';
 import ApiError from '../errors/ApiError';
 import { IOptions, QueryResult } from '../paginate/paginate';
-import { IUser, UpdateUserBody, IUserDoc } from './user.interfaces';
+import { IUser, UpdateUserBody, IUserDoc, UpdateStatusUserBody } from './user.interfaces';
 
 /**
  * Create a user
@@ -81,5 +81,24 @@ export const deleteUserById = async (userId: mongoose.Types.ObjectId): Promise<I
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
   await user.remove();
+  return user;
+};
+
+/**
+ * Update status user by id
+ * @param {mongoose.Types.ObjectId} userId
+ * @param {UpdateStatusUserBody} updateBody
+ * @returns {Promise<IUserDoc | null>}
+ */
+export const updateStatusUserById = async (
+  userId: mongoose.Types.ObjectId,
+  updateBody: UpdateStatusUserBody
+): Promise<IUserDoc | null> => {
+  const user = await getUserById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  Object.assign(user, updateBody);
+  await user.save();
   return user;
 };

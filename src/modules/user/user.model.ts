@@ -40,6 +40,11 @@ const userSchema = new mongoose.Schema<IUser, IUserModel>(
       trim: true,
     },
     role: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', autopopulate: true },
+    status: {
+      type: String,
+      enum: ['active', 'archived'],
+      default: 'active',
+    },
   },
   {
     timestamps: true,

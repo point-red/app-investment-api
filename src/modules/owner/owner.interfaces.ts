@@ -6,6 +6,7 @@ export interface IOwner {
   lastName: string;
   email: string;
   phone: string;
+  status?: string;
 }
 
 export interface IOwnerDoc extends IOwner, Document {
@@ -18,6 +19,12 @@ export interface IOwnerModel extends Model<IOwnerDoc> {
   paginate(filter: Record<string, any>, options: Record<string, any>): Promise<QueryResult>;
 }
 
+export type CreateOwnerBody = Omit<IOwner, 'status'>;
+
 export type UpdateOwnerBody = Partial<IOwner>;
+
+export type UpdateStatusOwnerBody = Partial<{
+  status: string;
+}>;
 
 export type NewCreatedOwner = Partial<IOwner>;

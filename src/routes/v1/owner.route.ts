@@ -15,4 +15,8 @@ router
   .patch(validate(ownerValidation.updateOwner), ownerController.updateOwner)
   .delete(validate(ownerValidation.deleteOwner), ownerController.deleteOwner);
 
+router
+  .route('/:ownerId/update-status')
+  .patch(validate(ownerValidation.updateStatusOwner), ownerController.updateStatusOwner);
+
 export default router;

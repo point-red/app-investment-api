@@ -33,6 +33,11 @@ const ownerSchema = new mongoose.Schema<IOwner, IOwnerModel>(
       required: true,
       trim: true,
     },
+    status: {
+      type: String,
+      enum: ['active', 'archived'],
+      default: 'active',
+    },
   },
   {
     timestamps: true,

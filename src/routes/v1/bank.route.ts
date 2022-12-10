@@ -15,4 +15,6 @@ router
   .patch(validate(bankValidation.updateBank), bankController.updateBank)
   .delete(validate(bankValidation.deleteBank), bankController.deleteBank);
 
+router.route('/:bankId/update-status').patch(validate(bankValidation.updateStatusBank), bankController.updateStatusBank);
+
 export default router;

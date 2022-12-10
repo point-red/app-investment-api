@@ -45,3 +45,10 @@ export const deleteUser = catchAsync(async (req: Request, res: Response) => {
     res.status(httpStatus.NO_CONTENT).send();
   }
 });
+
+export const updateStatusUser = catchAsync(async (req: Request, res: Response) => {
+  if (typeof req.params['userId'] === 'string') {
+    const user = await userService.updateStatusUserById(new mongoose.Types.ObjectId(req.params['userId']), req.body);
+    res.send(user);
+  }
+});

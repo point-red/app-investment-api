@@ -1,8 +1,8 @@
 import Joi from 'joi';
 import { objectId } from '../validate/custom.validation';
-import { IUser } from './user.interfaces';
+import { CreateUserBody } from './user.interfaces';
 
-const createUserBody: Record<keyof IUser, any> = {
+const createUserBody: Record<keyof CreateUserBody, any> = {
   username: Joi.string().required(),
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
@@ -50,4 +50,15 @@ export const deleteUser = {
   params: Joi.object().keys({
     userId: Joi.string().custom(objectId),
   }),
+};
+
+export const updateStatusUser = {
+  params: Joi.object().keys({
+    userId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      status: Joi.string().valid('active', 'archived'),
+    })
+    .min(1),
 };

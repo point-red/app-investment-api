@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import Owner from './owner.model';
 import ApiError from '../errors/ApiError';
 import { IOptions, QueryResult } from '../paginate/paginate';
-import { IOwner, UpdateOwnerBody, IOwnerDoc } from './owner.interfaces';
+import { IOwner, UpdateOwnerBody, UpdateStatusOwnerBody, IOwnerDoc } from './owner.interfaces';
 
 /**
  * Create a owner
@@ -75,5 +75,24 @@ export const deleteOwnerById = async (ownerId: mongoose.Types.ObjectId): Promise
     throw new ApiError(httpStatus.NOT_FOUND, 'Owner not found');
   }
   await owner.remove();
+  return owner;
+};
+
+/**
+ * Update status owner by id
+ * @param {mongoose.Types.ObjectId} ownerId
+ * @param {UpdateStatusOwnerBody} updateBody
+ * @returns {Promise<IOwnerDoc | null>}
+ */
+export const updateStatusOwnerById = async (
+  ownerId: mongoose.Types.ObjectId,
+  updateBody: UpdateStatusOwnerBody
+): Promise<IOwnerDoc | null> => {
+  const owner = await getOwnerById(ownerId);
+  if (!owner) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Owner not found');
+  }
+  Object.assign(owner, updateBody);
+  await owner.save();
   return owner;
 };

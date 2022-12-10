@@ -61,6 +61,7 @@ describe('Owner routes', () => {
         lastName: newOwner.lastName,
         email: newOwner.email,
         phone: newOwner.phone,
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
 
@@ -110,6 +111,7 @@ describe('Owner routes', () => {
         lastName: ownerOne.lastName,
         email: ownerOne.email,
         phone: ownerOne.phone,
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
     });
@@ -194,6 +196,7 @@ describe('Owner routes', () => {
         lastName: ownerOne.lastName,
         email: ownerOne.email,
         phone: ownerOne.phone,
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
     });
@@ -252,6 +255,7 @@ describe('Owner routes', () => {
         lastName: updateBody.lastName,
         email: updateBody.email,
         phone: updateBody.phone,
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
 
@@ -292,6 +296,37 @@ describe('Owner routes', () => {
       const updateBody = { email: ownerOne.email };
 
       await request(app).patch(`/v1/owners/${ownerOne._id}`).send(updateBody).expect(httpStatus.OK);
+    });
+  });
+
+  describe('PATCH /v1/owners/:ownerId/status-update', () => {
+    test('should return 200 and successfully update status owner if data is ok', async () => {
+      await insertOwners([ownerOne]);
+      const updateBody = {
+        status: 'archived',
+      };
+
+      const res = await request(app)
+        .patch(`/v1/owners/${ownerOne._id}/update-status`)
+        .send(updateBody)
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        id: ownerOne._id.toHexString(),
+        email: ownerOne.email,
+        firstName: ownerOne.firstName,
+        lastName: ownerOne.lastName,
+        phone: ownerOne.phone,
+        status: updateBody.status,
+        createdAt: expect.anything(),
+      });
+
+      const dbOwner = await Owner.findById(ownerOne._id);
+      expect(dbOwner).toBeDefined();
+      if (!dbOwner) return;
+      expect(dbOwner).toMatchObject({
+        status: updateBody.status,
+      });
     });
   });
 });
