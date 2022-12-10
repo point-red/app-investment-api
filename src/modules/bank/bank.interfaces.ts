@@ -16,6 +16,7 @@ export interface IBank {
   code: string;
   notes: string;
   accounts?: IBankAccount[];
+  status?: string;
 }
 
 export interface IBankDoc extends IBank, Document {
@@ -27,8 +28,14 @@ export interface IBankModel extends Model<IBankDoc> {
   paginate(filter: Record<string, any>, options: Record<string, any>): Promise<QueryResult>;
 }
 
+export type CreateBankBody = Omit<IBank, 'status'>;
+
 export type UpdateBankBody = Partial<IBank>;
 
 export type AssignPermissionBody = Omit<IBank, 'name'>;
+
+export type UpdateStatusBankBody = Partial<{
+  status: string;
+}>;
 
 export type NewCreatedBank = Partial<IBank>;

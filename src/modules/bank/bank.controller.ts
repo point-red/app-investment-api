@@ -43,3 +43,10 @@ export const deleteBank = catchAsync(async (req: Request, res: Response) => {
     res.status(httpStatus.NO_CONTENT).send();
   }
 });
+
+export const updateStatusBank = catchAsync(async (req: Request, res: Response) => {
+  if (typeof req.params['bankId'] === 'string') {
+    const bank = await bankService.updateStatusBankById(new mongoose.Types.ObjectId(req.params['bankId']), req.body);
+    res.send(bank);
+  }
+});

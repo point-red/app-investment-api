@@ -1,8 +1,8 @@
 import Joi from 'joi';
 import { objectId } from '../validate/custom.validation';
-import { IBank } from './bank.interfaces';
+import { CreateBankBody } from './bank.interfaces';
 
-const createBankBody: Record<keyof IBank, any> = {
+const createBankBody: Record<keyof CreateBankBody, any> = {
   name: Joi.string().required(),
   branch: Joi.string().required(),
   address: Joi.string().required(),
@@ -54,4 +54,15 @@ export const deleteBank = {
   params: Joi.object().keys({
     bankId: Joi.string().custom(objectId),
   }),
+};
+
+export const updateStatusBank = {
+  params: Joi.object().keys({
+    bankId: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({
+      status: Joi.string().valid('active', 'archived'),
+    })
+    .min(1),
 };

@@ -105,6 +105,7 @@ describe('Bank routes', () => {
         code: newBank.code,
         notes: newBank.notes,
         accounts: expect.any(Array),
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
 
@@ -147,6 +148,7 @@ describe('Bank routes', () => {
         code: bankOne.code,
         notes: bankOne.notes,
         accounts: expect.any(Array),
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
     });
@@ -235,6 +237,7 @@ describe('Bank routes', () => {
         code: bankOne.code,
         notes: bankOne.notes,
         accounts: expect.any(Array),
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
     });
@@ -300,6 +303,7 @@ describe('Bank routes', () => {
         code: updateBody.code,
         notes: updateBody.notes,
         accounts: expect.any(Array),
+        status: expect.anything(),
         createdAt: expect.anything(),
       });
 
@@ -316,6 +320,38 @@ describe('Bank routes', () => {
       const updateBody = { name: faker.name.firstName() };
 
       await request(app).patch(`/v1/banks/invalidId`).send(updateBody).expect(httpStatus.BAD_REQUEST);
+    });
+  });
+
+  describe('PATCH /v1/banks/:bankId/status-update', () => {
+    test('should return 200 and successfully update status bank if data is ok', async () => {
+      await insertBanks([bankOne]);
+      const updateBody = {
+        status: 'archived',
+      };
+
+      const res = await request(app).patch(`/v1/banks/${bankOne._id}/update-status`).send(updateBody).expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        id: bankOne._id.toHexString(),
+        name: bankOne.name,
+        branch: bankOne.branch,
+        address: bankOne.address,
+        phone: bankOne.phone,
+        fax: bankOne.fax,
+        code: bankOne.code,
+        notes: bankOne.notes,
+        accounts: expect.any(Array),
+        status: updateBody.status,
+        createdAt: expect.anything(),
+      });
+
+      const dbBank = await Bank.findById(bankOne._id);
+      expect(dbBank).toBeDefined();
+      if (!dbBank) return;
+      expect(dbBank).toMatchObject({
+        status: updateBody.status,
+      });
     });
   });
 });

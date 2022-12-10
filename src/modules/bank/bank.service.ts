@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import Bank from './bank.model';
 import ApiError from '../errors/ApiError';
 import { IOptions, QueryResult } from '../paginate/paginate';
-import { IBank, UpdateBankBody, IBankDoc } from './bank.interfaces';
+import { IBank, UpdateBankBody, IBankDoc, UpdateStatusBankBody } from './bank.interfaces';
 
 /**
  * Create a Bank
@@ -69,5 +69,24 @@ export const deleteBankById = async (bankId: mongoose.Types.ObjectId): Promise<I
     throw new ApiError(httpStatus.NOT_FOUND, 'Bank not found');
   }
   await bank.remove();
+  return bank;
+};
+
+/**
+ * Update status bank by id
+ * @param {mongoose.Types.ObjectId} bankId
+ * @param {UpdateStatusBankBody} updateBody
+ * @returns {Promise<IBankDoc | null>}
+ */
+export const updateStatusBankById = async (
+  bankId: mongoose.Types.ObjectId,
+  updateBody: UpdateStatusBankBody
+): Promise<IBankDoc | null> => {
+  const bank = await getBankById(bankId);
+  if (!bank) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Bank not found');
+  }
+  Object.assign(bank, updateBody);
+  await bank.save();
   return bank;
 };

@@ -59,6 +59,11 @@ const bankSchema = new mongoose.Schema<IBank, IBankModel>(
         },
       },
     ],
+    status: {
+      type: String,
+      enum: ['active', 'archived'],
+      default: 'active',
+    },
   },
   {
     timestamps: true,
