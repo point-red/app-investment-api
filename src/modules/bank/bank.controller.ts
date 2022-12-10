@@ -13,8 +13,8 @@ export const createBank = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const getBanks = catchAsync(async (req: Request, res: Response) => {
-  const { search } = req.query;
-  const filter = { $or: [{ name: { $regex: search || '', $options: 'i' } }] };
+  const { search, status } = req.query;
+  const filter = { status: status || 'active', $or: [{ firstName: { $regex: search || '', $options: 'i' } }] };
   const options: IOptions = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await bankService.queryBanks(filter, options);
   res.send(result);

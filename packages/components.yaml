@@ -1,23 +1,25 @@
 components:
   schemas:
-    User:
+    Owner:
       type: object
       properties:
         id:
           type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
         email:
           type: string
           format: email
-        name:
+        phone:
           type: string
-        role:
-          type: string
-          enum: [user, admin]
       example:
         id: 5ebac534954b54139806c112
-        email: fake@example.com
-        name: fake name
-        role: user
+        firstName: John
+        lastName: Doe
+        email: johndoe@example.com
+        phone: 081395038967
 
     Token:
       type: object

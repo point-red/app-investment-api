@@ -13,8 +13,9 @@ export const createUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const getUsers = catchAsync(async (req: Request, res: Response) => {
-  const { search } = req.query;
+  const { search, status } = req.query;
   const filter = {
+    status: status || 'active',
     $or: [{ username: { $regex: search || '', $options: 'i' } }, { firstName: { $regex: search || '', $options: 'i' } }],
   };
   const options: IOptions = pick(req.query, ['sortBy', 'limit', 'page']);

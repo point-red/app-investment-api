@@ -16,6 +16,7 @@ export const createOwner = {
 export const getOwners = {
   query: Joi.object().keys({
     search: Joi.string().allow(''),
+    status: Joi.string().allow(''),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),

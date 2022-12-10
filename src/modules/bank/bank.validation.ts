@@ -20,6 +20,7 @@ export const createBank = {
 export const getBanks = {
   query: Joi.object().keys({
     search: Joi.string().allow(''),
+    status: Joi.string().allow(''),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),

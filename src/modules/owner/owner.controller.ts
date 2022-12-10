@@ -13,8 +13,8 @@ export const createOwner = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const getOwners = catchAsync(async (req: Request, res: Response) => {
-  const { search } = req.query;
-  const filter = { $or: [{ firstName: { $regex: search || '', $options: 'i' } }] };
+  const { search, status } = req.query;
+  const filter = { status: status || 'active', $or: [{ firstName: { $regex: search || '', $options: 'i' } }] };
   const options: IOptions = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await ownerService.queryOwners(filter, options);
   res.send(result);

@@ -15,6 +15,7 @@ const ownerOne = {
   lastName: faker.name.lastName(),
   email: faker.internet.email().toLowerCase(),
   phone: faker.phone.number('62#########'),
+  status: 'active',
 };
 
 const ownerTwo = {
@@ -23,6 +24,7 @@ const ownerTwo = {
   lastName: faker.name.lastName(),
   email: faker.internet.email().toLowerCase(),
   phone: faker.phone.number('62#########'),
+  status: 'active',
 };
 
 const ownerThree = {
@@ -31,6 +33,7 @@ const ownerThree = {
   lastName: faker.name.lastName(),
   email: faker.internet.email().toLowerCase(),
   phone: faker.phone.number('62#########'),
+  status: 'active',
 };
 
 const insertOwners = async (owners: Record<string, any>[]) => {
@@ -111,7 +114,7 @@ describe('Owner routes', () => {
         lastName: ownerOne.lastName,
         email: ownerOne.email,
         phone: ownerOne.phone,
-        status: expect.anything(),
+        status: ownerOne.status,
         createdAt: expect.anything(),
       });
     });
@@ -182,6 +185,33 @@ describe('Owner routes', () => {
       expect(res.body.results).toHaveLength(1);
       expect(res.body.results[0].id).toBe(ownerThree._id.toHexString());
     });
+
+    test('should return 200 and apply filter query status archived', async () => {
+      ownerOne.status = 'archived';
+      ownerTwo.status = 'archived';
+      ownerThree.status = 'archived';
+      await insertOwners([ownerOne, ownerTwo, ownerThree]);
+
+      const res = await request(app).get('/v1/owners').query({ status: 'archived' }).send().expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 3,
+      });
+      expect(res.body.results).toHaveLength(3);
+      expect(res.body.results[0]).toEqual({
+        id: ownerOne._id.toHexString(),
+        firstName: ownerOne.firstName,
+        lastName: ownerOne.lastName,
+        email: ownerOne.email,
+        phone: ownerOne.phone,
+        status: ownerOne.status,
+        createdAt: expect.anything(),
+      });
+    });
   });
 
   describe('GET /v1/owners/:ownerId', () => {
@@ -196,7 +226,7 @@ describe('Owner routes', () => {
         lastName: ownerOne.lastName,
         email: ownerOne.email,
         phone: ownerOne.phone,
-        status: expect.anything(),
+        status: ownerOne.status,
         createdAt: expect.anything(),
       });
     });

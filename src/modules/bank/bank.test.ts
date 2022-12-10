@@ -25,6 +25,7 @@ const bankOne = {
       notes: faker.lorem.lines(),
     },
   ],
+  status: 'active',
 };
 
 const bankTwo = {
@@ -43,6 +44,7 @@ const bankTwo = {
       notes: faker.lorem.lines(),
     },
   ],
+  status: 'active',
 };
 
 const bankThree = {
@@ -61,6 +63,7 @@ const bankThree = {
       notes: faker.lorem.lines(),
     },
   ],
+  status: 'active',
 };
 
 const insertBanks = async (banks: Record<string, any>[]) => {
@@ -148,7 +151,7 @@ describe('Bank routes', () => {
         code: bankOne.code,
         notes: bankOne.notes,
         accounts: expect.any(Array),
-        status: expect.anything(),
+        status: bankOne.status,
         createdAt: expect.anything(),
       });
     });
@@ -163,9 +166,9 @@ describe('Bank routes', () => {
         page: 1,
         limit: 10,
         totalPages: 1,
-        totalResults: 1,
+        totalResults: 3,
       });
-      expect(res.body.results).toHaveLength(1);
+      expect(res.body.results).toHaveLength(3);
       expect(res.body.results[0].id).toBe(bankOne._id.toHexString());
     });
 
@@ -219,6 +222,37 @@ describe('Bank routes', () => {
       expect(res.body.results).toHaveLength(1);
       expect(res.body.results[0].id).toBe(bankThree._id.toHexString());
     });
+
+    test('should return 200 and apply filter query status archived', async () => {
+      bankOne.status = 'archived';
+      bankTwo.status = 'archived';
+      bankThree.status = 'archived';
+      await insertBanks([bankOne, bankTwo, bankThree]);
+
+      const res = await request(app).get('/v1/banks').query({ status: 'archived' }).send().expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 3,
+      });
+      expect(res.body.results).toHaveLength(3);
+      expect(res.body.results[0]).toEqual({
+        id: bankOne._id.toHexString(),
+        name: bankOne.name,
+        branch: bankOne.branch,
+        address: bankOne.address,
+        phone: bankOne.phone,
+        fax: bankOne.fax,
+        code: bankOne.code,
+        notes: bankOne.notes,
+        accounts: expect.any(Array),
+        status: bankOne.status,
+        createdAt: expect.anything(),
+      });
+    });
   });
 
   describe('GET /v1/banks/:bankId', () => {
@@ -237,7 +271,7 @@ describe('Bank routes', () => {
         code: bankOne.code,
         notes: bankOne.notes,
         accounts: expect.any(Array),
-        status: expect.anything(),
+        status: bankOne.status,
         createdAt: expect.anything(),
       });
     });

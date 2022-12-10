@@ -17,6 +17,7 @@ const userOne = {
   lastName: faker.name.lastName(),
   email: faker.internet.email().toLowerCase(),
   phone: faker.phone.number('62#########'),
+  status: 'active',
 };
 
 const userTwo = {
@@ -26,6 +27,7 @@ const userTwo = {
   lastName: faker.name.lastName(),
   email: faker.internet.email().toLowerCase(),
   phone: faker.phone.number('62#########'),
+  status: 'active',
 };
 
 const userThree = {
@@ -35,17 +37,13 @@ const userThree = {
   lastName: faker.name.lastName(),
   email: faker.internet.email().toLowerCase(),
   phone: faker.phone.number('62#########'),
+  status: 'active',
 };
 
 const roleOne = {
   _id: new mongoose.Types.ObjectId(),
   name: faker.name.firstName(),
 };
-
-// const roleTwo = {
-//   _id: new mongoose.Types.ObjectId(),
-//   name: faker.name.firstName(),
-// };
 
 const insertUsers = async (users: Record<string, any>[]) => {
   await User.insertMany(users.map((user) => ({ ...user })));
@@ -144,7 +142,7 @@ describe('User routes', () => {
         lastName: userOne.lastName,
         email: userOne.email,
         phone: userOne.phone,
-        status: expect.anything(),
+        status: userOne.status,
         createdAt: expect.anything(),
       });
     });
@@ -215,6 +213,34 @@ describe('User routes', () => {
       expect(res.body.results).toHaveLength(1);
       expect(res.body.results[0].id).toBe(userThree._id.toHexString());
     });
+
+    test('should return 200 and apply filter query status archived', async () => {
+      userOne.status = 'archived';
+      userTwo.status = 'archived';
+      userThree.status = 'archived';
+      await insertUsers([userOne, userTwo, userThree]);
+
+      const res = await request(app).get('/v1/users').query({ status: 'archived' }).send().expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 3,
+      });
+      expect(res.body.results).toHaveLength(3);
+      expect(res.body.results[0]).toEqual({
+        id: userOne._id.toHexString(),
+        username: userOne.username,
+        firstName: userOne.firstName,
+        lastName: userOne.lastName,
+        email: userOne.email,
+        phone: userOne.phone,
+        status: userOne.status,
+        createdAt: expect.anything(),
+      });
+    });
   });
 
   describe('GET /v1/users/:userId', () => {
@@ -230,7 +256,7 @@ describe('User routes', () => {
         lastName: userOne.lastName,
         email: userOne.email,
         phone: userOne.phone,
-        status: expect.anything(),
+        status: userOne.status,
         createdAt: expect.anything(),
       });
     });

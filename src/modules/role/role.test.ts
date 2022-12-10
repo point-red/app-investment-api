@@ -3,6 +3,7 @@ import request from 'supertest';
 import { faker } from '@faker-js/faker';
 import httpStatus from 'http-status';
 import httpMocks from 'node-mocks-http';
+import { jest } from '@jest/globals';
 import checkPassword from '../../middleware/checkPassword.middleware';
 import app from '../../app';
 import setupTestDB from '../jest/setupTestDB';
