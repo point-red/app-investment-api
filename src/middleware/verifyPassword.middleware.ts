@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import { Request, Response, NextFunction } from 'express';
 import { ApiError } from '../modules/errors';
 
-const checkPassword = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+const verifyPassword = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const { password } = req.body;
   const resultCompare = password === 'password';
 
@@ -13,4 +13,4 @@ const checkPassword = async (req: Request, _res: Response, next: NextFunction): 
   return next();
 };
 
-export default checkPassword;
+export default verifyPassword;

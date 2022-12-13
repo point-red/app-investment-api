@@ -4,7 +4,8 @@ import { faker } from '@faker-js/faker';
 import httpStatus from 'http-status';
 import httpMocks from 'node-mocks-http';
 import { jest } from '@jest/globals';
-import checkPassword from '../../middleware/checkPassword.middleware';
+import verifyPassword from '../../middleware/verifyPassword.middleware';
+import verifyPermission from '../../middleware/verifyPermission.middleware';
 import app from '../../app';
 import setupTestDB from '../jest/setupTestDB';
 import Role from './role.model';
@@ -18,7 +19,7 @@ const userPassword = 'password';
 
 const permissionOne = {
   _id: new mongoose.Types.ObjectId(),
-  name: faker.internet.userName(),
+  name: 'roles.create',
 };
 
 const roleOne = {
@@ -47,32 +48,74 @@ const insertRoles = async (roles: Record<string, any>[]) => {
 describe('Role routes', () => {
   describe('POST /v1/roles', () => {
     let newRole: IRole;
+    let newUser: any;
 
     beforeEach(() => {
       newRole = {
         name: faker.name.firstName(),
         permissions: [],
       };
+
+      insertPermissions([permissionOne]);
+
+      const role = {
+        _id: new mongoose.Types.ObjectId(),
+        name: faker.name.firstName(),
+        permissions: [permissionOne._id.toHexString()],
+      };
+
+      insertRoles([role]);
+
+      newUser = {
+        _id: new mongoose.Types.ObjectId(),
+        username: faker.internet.userName(),
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        email: faker.internet.email().toLowerCase(),
+        phone: faker.phone.number('62#########'),
+        role: role._id.toHexString(),
+        status: 'active',
+      };
     });
 
     test('should return 201 and successfully create new role if data is ok', async () => {
       await insertRoles([roleThree]);
 
-      const res = await request(app).post('/v1/roles').send(newRole).expect(httpStatus.CREATED);
-
-      expect(res.body).toEqual({
-        id: expect.anything(),
-        name: newRole.name,
-        permissions: [],
-        createdAt: expect.anything(),
+      const req = httpMocks.createRequest({
+        method: 'POST',
+        url: `/v1/roles`,
+        body: newRole,
       });
+      const next = jest.fn();
 
-      const dbRole = await Role.findById(res.body.id);
-      expect(dbRole).toBeDefined();
-      if (!dbRole) return;
-      expect(dbRole).toMatchObject({
-        name: newRole.name,
+      req.user = newUser;
+
+      await verifyPermission('roles.create')(req, httpMocks.createResponse(), next);
+
+      expect(next).toHaveBeenCalledWith();
+    });
+
+    test("should return 401 when user doesn't have permission create role", async () => {
+      await insertRoles([roleThree]);
+
+      const req = httpMocks.createRequest({
+        method: 'POST',
+        url: `/v1/roles`,
+        body: newRole,
       });
+      const next = jest.fn();
+
+      req.user = newUser;
+
+      await verifyPermission('undefined.permission')(req, httpMocks.createResponse(), next);
+
+      expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+      expect(next).toHaveBeenCalledWith(
+        expect.objectContaining({
+          statusCode: httpStatus.UNAUTHORIZED,
+          message: "You don't have enough permission to perform this action",
+        })
+      );
     });
   });
 
@@ -206,7 +249,7 @@ describe('Role routes', () => {
       });
       const next = jest.fn();
 
-      await checkPassword(req, httpMocks.createResponse(), next);
+      await verifyPassword(req, httpMocks.createResponse(), next);
 
       expect(next).toHaveBeenCalledWith();
     });
@@ -223,7 +266,7 @@ describe('Role routes', () => {
       });
       const next = jest.fn();
 
-      await checkPassword(req, httpMocks.createResponse(), next);
+      await verifyPassword(req, httpMocks.createResponse(), next);
 
       expect(next).toHaveBeenCalledWith(expect.any(ApiError));
       expect(next).toHaveBeenCalledWith(
