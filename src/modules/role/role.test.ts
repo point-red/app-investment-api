@@ -78,7 +78,7 @@ describe('Role routes', () => {
       };
     });
 
-    test('should call next with no errors if and successfully create new role if data is ok', async () => {
+    test('should call next with no errors if successfully create new role if data is ok', async () => {
       await insertRoles([roleThree]);
 
       const req = httpMocks.createRequest({
