@@ -78,7 +78,7 @@ describe('Role routes', () => {
       };
     });
 
-    test('should return 201 and successfully create new role if data is ok', async () => {
+    test('should call next with no errors if and successfully create new role if data is ok', async () => {
       await insertRoles([roleThree]);
 
       const req = httpMocks.createRequest({
@@ -95,7 +95,7 @@ describe('Role routes', () => {
       expect(next).toHaveBeenCalledWith();
     });
 
-    test("should return 401 when user doesn't have permission create role", async () => {
+    test('should call next with unauthorized error if not have permission for access', async () => {
       await insertRoles([roleThree]);
 
       const req = httpMocks.createRequest({
@@ -237,7 +237,7 @@ describe('Role routes', () => {
   });
 
   describe('DELETE /v1/roles/:roleId', () => {
-    test('should return 204 if data is ok', async () => {
+    test('should call next with no errors if data is ok', async () => {
       await insertRoles([roleOne]);
 
       const req = httpMocks.createRequest({
@@ -254,7 +254,7 @@ describe('Role routes', () => {
       expect(next).toHaveBeenCalledWith();
     });
 
-    test('should return 401 if wrong password', async () => {
+    test('should call next with error if wrong password', async () => {
       await insertRoles([roleOne]);
 
       const req = httpMocks.createRequest({
